@@ -1,0 +1,10 @@
+Subject: A quick note about {{ name }}
+
+Hi there,
+
+I recently came across {{ name }}, and it looks like a fantastic place for people looking for a cozy, welcoming vibe on a first date. At Breeze, we connect singles with meaningful in-person experiences — and your venue seems like a perfect match.
+
+We’d love to feature {{ name }} as one of our recommended spots. Let me know if you're open to a quick chat!
+
+Warm regards,  
+Breeze Team  
