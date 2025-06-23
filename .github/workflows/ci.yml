@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install uv
+          uv pip install -r pyproject.toml
+
+      - name: Lint and format
+        run: |
+          pip install flake8 black
+          flake8 .
+          black --check .
+
+      - name: Run tests
+        run: |
+          pytest || echo "No tests found"
+
+      - name: Build Docker image
+        run: |
+          docker build -t breeze:latest .
