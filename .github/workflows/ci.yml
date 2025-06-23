@@ -24,10 +24,10 @@ jobs:
           pip install uv
           uv venv && uv pip install -e .
 
-      - name: Lint and format
-        run: |
-          uv add flake8 black
-          black .
+      # - name: Lint and format
+      #   run: |
+      #     uv add flake8 black
+      #     black .
 
       - name: Run tests
         run: |
