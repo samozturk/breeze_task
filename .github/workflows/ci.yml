@@ -22,13 +22,12 @@ jobs:
       - name: Install dependencies
         run: |
           pip install uv
-          uv pip install -r pyproject.toml
+          uv venv && uv pip install -e .
 
       - name: Lint and format
         run: |
-          pip install flake8 black
-          flake8 .
-          black --check .
+          uv add flake8 black
+          black .
 
       - name: Run tests
         run: |
@@ -37,3 +36,11 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t breeze:latest .
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Push Docker image
+        run: |
+          docker tag breeze:latest ${{ secrets.DOCKERHUB_USERNAME }}/breeze:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/breeze:latest
